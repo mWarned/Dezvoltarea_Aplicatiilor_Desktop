@@ -1,7 +1,7 @@
 # Dezvoltarea_Aplicatiilor_Desktop
 Repositoriul pentru stocarea proiectelor legate de disciplina "Dezvoltarea aplicatiilor desktop"
 #
-# Saptamana 1
+# <span style="color: green"> Saptamana 1 </span>
   ## Laboratoare
   - Laborator 1 (Crearea frame-urilor, nu e adaugat)
   - Laborator 2 - World Cup Selector (Flag display)
