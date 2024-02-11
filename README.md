@@ -6,12 +6,12 @@ Repositoriul pentru stocarea proiectelor legate de disciplina "Dezvoltarea aplic
   - Laborator 1 (Crearea frame-urilor, nu e adaugat)
   - Laborator 2 - World Cup Selector (Flag display)
 #
-# Saptamana 2
+# $${\color{lightgreen}Saptamana \space 2}$$
   ## Laboratoare
   - Laborator 1 - Experimentarea cu Swing
   - Laborator 2 - Rezolvarea sarcinilor
 #
-# Saptamana 3
+# $${\color{lightgreen}Saptamana \space 3}$$
   ## Laboratoare
   - Laborator 1 - Experimentarea cu obiectele
   - Laborator 2 - Rezolvarea sarcinilor
