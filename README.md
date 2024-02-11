@@ -9,3 +9,9 @@ Repositoriul pentru stocarea proiectelor legate de disciplina "Dezvoltarea aplic
 # Saptamana 2
   ## Laboratoare
   - Laborator 1 - Experimentarea cu Swing
+  - Laborator 2 - Rezolvarea sarcinilor
+
+# Saptamana 3
+  ## Laboratoare
+  - Laborator 1 - Experimentarea cu obiectele
+  - Laborator 2 - Rezolvarea sarcinilor
