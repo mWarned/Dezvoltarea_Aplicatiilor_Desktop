@@ -15,3 +15,7 @@ Repositoriul pentru stocarea proiectelor legate de disciplina "Dezvoltarea aplic
   ## Laboratoare
   - Laborator 1 - Experimentarea cu obiectele
   - Laborator 2 - Rezolvarea sarcinilor
+#
+# $${\color{lightgreen}Saptamana \space 4}$$
+  ## Laboratoare
+  - Studiul Individual 1 - Aplicatie pentru baze de date
