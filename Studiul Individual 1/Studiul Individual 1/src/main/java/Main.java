@@ -125,7 +125,7 @@ public class Main extends JFrame {
         menuShow.add(menuShowNrMarriedUnder20);
         menuShow.add(menuShowNrRefused);
 
-        menuShow.addActionListener(new ActionListener() {
+        menuShowOldestYoungest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                PanelFrame3 panel3 = new PanelFrame3();
@@ -138,6 +138,7 @@ public class Main extends JFrame {
             }
         });
 
+        JMenuItem menuExport = new JMenuItem("Export people of given birth month");
         JMenuItem menuExit = new JMenuItem("Exit");
         menuExit.addActionListener(new ActionListener() {
             @Override
@@ -151,9 +152,13 @@ public class Main extends JFrame {
         menuMain.add(menuDelete);
         menuMain.add(menuShow);
         menuMain.addSeparator();
+        menuMain.add(menuExport);
         menuMain.add(menuExit);
+
         menuBar.add(menuMain);
 
         setJMenuBar(menuBar);
+
+        setResizable(false);
     }
 }

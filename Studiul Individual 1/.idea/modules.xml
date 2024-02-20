@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Studiul Individual 1.iml" filepath="$PROJECT_DIR$/.idea/Studiul Individual 1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Studiul Individual 1/demo.iml" filepath="$PROJECT_DIR$/Studiul Individual 1/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/connector/mysql-connector-j-8.3.0/src/build/misc/misc.iml" filepath="$PROJECT_DIR$/connector/mysql-connector-j-8.3.0/src/build/misc/misc.iml" />
+    </modules>
+  </component>
+</project>
