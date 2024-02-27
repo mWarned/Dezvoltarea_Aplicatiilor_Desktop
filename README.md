@@ -18,4 +18,9 @@ Repositoriul pentru stocarea proiectelor legate de disciplina "Dezvoltarea aplic
 #
 # $${\color{lightgreen}Saptamana \space 4}$$
   ## Laboratoare
-  - Studiul Individual 1 - Aplicatie pentru baze de date
+  - Laborator 1 - Calculator (Multiply / Add)
+  - Laborator 2 - Convertor de valuta
+#
+# $${\color{lightgreen}Lucrul \space Individual}$$
+  ## Studiul Individual 1
+  - Aplicatie pentru baze de date
