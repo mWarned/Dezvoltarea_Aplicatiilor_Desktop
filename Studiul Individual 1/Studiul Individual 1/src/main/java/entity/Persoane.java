@@ -21,10 +21,10 @@ import java.sql.Date;
 @NamedQuery(name = "Persoane.DeletePID", query = "DELETE FROM Persoane p WHERE p.pid = ?1")
 public class Persoane implements HelperInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "ID")
     private int id;
-    @Basic
+    @Id
     @Column(name = "PID")
     private int pid;
     @Basic

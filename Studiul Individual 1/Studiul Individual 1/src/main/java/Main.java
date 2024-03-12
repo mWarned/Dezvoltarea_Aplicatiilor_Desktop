@@ -152,6 +152,7 @@ public class Main extends JFrame {
 
                         if (result == JOptionPane.OK_OPTION) {
                             Character selectedGender = (Character) genderComboBox.getSelectedItem();
+                            mainPanel.displayList(persoane.peopleUnder18(selectedGender));
                             int count = persoane.peopleUnder18(selectedGender).size();
                             JOptionPane.showMessageDialog(getParent(), "Numarul persoanelor (" + selectedGender + ") - " + count);
                         }

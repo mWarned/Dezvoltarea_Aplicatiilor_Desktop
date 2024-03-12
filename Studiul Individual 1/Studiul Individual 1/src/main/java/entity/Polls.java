@@ -8,10 +8,10 @@ import utils.HelperInterface;
 @NamedQuery(name = "Polls.AnonymousCount", query = "SELECT COUNT(*) FROM Polls p WHERE person = null")
 public class Polls implements HelperInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "ID")
     private int id;
-    @Basic
+    @Id
     @Column(name = "PID")
     private int pid;
     @Basic

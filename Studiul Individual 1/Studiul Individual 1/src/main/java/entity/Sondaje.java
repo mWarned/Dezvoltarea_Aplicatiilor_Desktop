@@ -7,10 +7,10 @@ import utils.HelperInterface;
 @NamedQuery(name = "Sondaje.All", query = "SELECT s FROM Sondaje s")
 public class Sondaje implements HelperInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Basic
     @Column(name = "ID")
     private int id;
-    @Basic
+    @Id
     @Column(name = "PID")
     private int pid;
     @Basic
