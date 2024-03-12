@@ -13,9 +13,11 @@ import java.sql.Date;
 @NamedQuery(name = "Persoane.DivorcedNr", query = "SELECT (COUNT(*)) FROM Persoane WHERE divortat = 1")
 @NamedQuery(name = "Persoane.TotalNr", query = "SELECT (COUNT(*)) FROM Persoane")
 @NamedQuery(name = "Persoane.AgeRange", query = "SELECT p FROM Persoane p WHERE p.dataNasterii BETWEEN ?1 AND ?2")
-@NamedQuery(name = "Persoane.SelectM18", query = "SELECT p FROM Persoane p WHERE p.dataNasterii <= ?1 AND p.sex = 'm'")
-@NamedQuery(name = "Persoane.SelectF18", query = "SELECT p FROM Persoane p WHERE p.dataNasterii <= ?1 AND p.sex = 'f'")
+@NamedQuery(name = "Persoane.SelectM18", query = "SELECT p FROM Persoane p WHERE p.dataNasterii >= ?1 AND p.sex = 'm'")
+@NamedQuery(name = "Persoane.SelectF18", query = "SELECT p FROM Persoane p WHERE p.dataNasterii >= ?1 AND p.sex = 'f'")
 @NamedQuery(name = "Persoane.MarriedUnder20", query = "SELECT p FROM Persoane p WHERE p.dataNasterii >= ?1 AND p.casatorit = 1")
+@NamedQuery(name = "Persoane.RefusedToParticipate", query = "SELECT p FROM Persoane p LEFT JOIN Polls po ON p.id = po.person WHERE po.poll IS NULL")
+@NamedQuery(name = "Persoane.BornInMonth", query = "SELECT p FROM Persoane p WHERE MONTH(p.dataNasterii) = ?1")
 @NamedQuery(name = "Persoane.DeletePID", query = "DELETE FROM Persoane p WHERE p.pid = ?1")
 public class Persoane implements HelperInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

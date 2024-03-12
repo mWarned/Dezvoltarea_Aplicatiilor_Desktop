@@ -1,9 +1,16 @@
+import entity.Persoane;
+import entity.implimentation.impPersoane;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
-public class PanelFrame1 extends JPanel {
+public class PanelAdd extends JPanel {
 
-    public PanelFrame1() {
+    public PanelAdd() {
         setLayout(null);
 
         JLabel lblPID = new JLabel("PID");
@@ -83,7 +90,12 @@ public class PanelFrame1 extends JPanel {
         lblDataNasterii.setBounds(20, 291, 150, 33);
         add(lblDataNasterii);
 
-        JSpinner txtDataNasterii = new JSpinner(new SpinnerDateModel());
+        Calendar calendar = Calendar.getInstance();
+        Date initialDate = new java.sql.Date(calendar.getTimeInMillis());
+        SpinnerDateModel dateModel = new SpinnerDateModel(initialDate, null, null, Calendar.DAY_OF_MONTH);
+        JSpinner txtDataNasterii = new JSpinner(dateModel);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(txtDataNasterii, "yyyy-MM-dd");
+        txtDataNasterii.setEditor(editor);
         txtDataNasterii.setFont(new Font("Tahoma", Font.PLAIN, 20));
         txtDataNasterii.setBounds(190, 291, 200, 33);
         add(txtDataNasterii);
@@ -110,8 +122,36 @@ public class PanelFrame1 extends JPanel {
         txtDivortat.setBounds(190, 377, 33, 33);
         add(txtDivortat);
 
-        JButton btnNextButton = new JButton("Add new person");
-        btnNextButton.setBounds(250, 420, 140, 33);
-        add(btnNextButton);
+        JButton btnAddPerson = new JButton("Add new person");
+        btnAddPerson.setBounds(250, 420, 140, 33);
+        add(btnAddPerson);
+
+        btnAddPerson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                impPersoane persoane = new impPersoane();
+                try {
+                    Persoane person = new Persoane();
+                    try {
+                        person.setPid(Integer.parseInt(txtPID.getText()));
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(getParent(), "PID trebuie sa fie un numar!");
+                    }
+                    person.setNume(txtNume.getText());
+                    person.setPrenume(txtPrenume.getText());
+                    person.setSex(txtSex.getSelectedIndex() == 0 ? 'm' : 'f');
+                    person.setNrTelefon(txtTelefon.getText());
+                    person.setEmail(txtEmail.getText());
+                    person.setDataNasterii(new java.sql.Date(((java.util.Date) txtDataNasterii.getValue()).getTime()));
+                    person.setCasatorit((byte) (txtCasatorit.isSelected() ? 1 : 0));
+                    person.setDivortat((byte) (txtDivortat.isSelected() ? 1 : 0));
+
+                    persoane.insert(person);
+                    JOptionPane.showMessageDialog(getParent(), "Persoana a fost introdusa cu succes");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(getParent(), ex.getMessage());
+                }
+            }
+        });
     }
 }

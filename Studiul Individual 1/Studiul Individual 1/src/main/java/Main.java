@@ -1,73 +1,42 @@
-    import entity.Persoane;
+import entity.Persoane;
 import entity.implimentation.*;
-import org.hibernate.event.internal.DefaultPersistOnFlushEventListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Main extends JFrame {
 
     static JPanel MainPanel;
     public static void main(String[] args) {
 
-//        List<Persoane> findAll = new impPersoane().outputPeopleInAgeRange(10, 25);
-//        for (Persoane x:
-//                findAll) {
-//            System.out.println(x);
-//        }
-
-
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Main frame = new Main();
                 frame.setVisible(true);
+
             }
         });
-
-//        System.out.println("\n");
-
-//        List<Persoane> p = new impPersoane().outputPeopleInAgeRange(10, 25);
-//        for (Persoane x:
-//             p) {
-//            System.out.println(x);
-//        }
-//
-//        System.out.println("\n");
-
-//        String rataDivortului = new impPersoane().divorcePercentage();
-//        System.out.println(rataDivortului);
-
-//        List<Persoane> over18 = new impPersoane().peopleOver18('f');
-//        for (Persoane x:
-//             over18) {
-//            System.out.println(x);
-//        }
-//
-//        System.out.println("\n");
-
-//        List<Persoane> marriedUnder20 = new impPersoane().marriedUnder20();
-//        for (Persoane x:
-//                marriedUnder20) {
-//            System.out.println(x);
-//        }
-//
-//        System.out.println("\n");
-
-//        long anonCount = new impPolls().countAnonymous();
-//        System.out.println(anonCount);
-
     }
 
     public Main() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 600);
-        setTitle("Java GUI Tutorial");
+        setBounds(100, 100, 800, 600);
+        setTitle("Java GUI Tutorial!");
 
-        getContentPane().add(new PanelMain());
+        PanelMain mainPanel = new PanelMain();
+        getContentPane().add(mainPanel);
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -82,10 +51,10 @@ public class Main extends JFrame {
         menuAddPerson.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PanelFrame1 panel1 = new PanelFrame1();
-                panel1.setBorder(BorderFactory.createTitledBorder("Add a new person"));
+                PanelAdd panelAdd = new PanelAdd();
+                panelAdd.setBorder(BorderFactory.createTitledBorder("Add a new person"));
                 getContentPane().removeAll();
-                getContentPane().add(panel1, BorderLayout.CENTER);
+                getContentPane().add(panelAdd, BorderLayout.CENTER);
                 getContentPane().doLayout();
             }
         });
@@ -99,10 +68,10 @@ public class Main extends JFrame {
         menuDeletePersonPID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PanelFrame2 panel2 = new PanelFrame2();
-                panel2.setBorder(BorderFactory.createTitledBorder("Delete a person"));
+                PanelDelete panelDelete = new PanelDelete();
+                panelDelete.setBorder(BorderFactory.createTitledBorder("Delete a person"));
                 getContentPane().removeAll();
-                getContentPane().add(panel2, BorderLayout.CENTER);
+                getContentPane().add(panelDelete, BorderLayout.CENTER);
                 getContentPane().doLayout();
             }
         });
@@ -110,11 +79,11 @@ public class Main extends JFrame {
         JMenu menuShow = new JMenu("Show");
 
         JMenuItem menuShowOldestYoungest = new JMenuItem("Oldest/Youngest");
-        JMenuItem menuShowSortAge = new JMenuItem("ASge sort");
+        JMenuItem menuShowSortAge = new JMenuItem("Age sort");
         JMenuItem menuShowDivorcePercentage = new JMenuItem("% Divorced");
         JMenuItem menuShowUnmariedMHigherEducation = new JMenuItem("M age range (HS)");
         JMenuItem menuShowMinor = new JMenuItem("M/F under 18yo");
-        JMenuItem menuShowNrMarriedUnder20 = new JMenuItem("Marriend under 20");
+        JMenuItem menuShowNrMarriedUnder20 = new JMenuItem("Married under 20");
         JMenuItem menuShowNrRefused = new JMenuItem("Refused to participate");
 
         menuShow.add(menuShowOldestYoungest);
@@ -125,20 +94,130 @@ public class Main extends JFrame {
         menuShow.add(menuShowNrMarriedUnder20);
         menuShow.add(menuShowNrRefused);
 
-        menuShowOldestYoungest.addActionListener(new ActionListener() {
+        ActionListener menuShowActionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                PanelFrame3 panel3 = new PanelFrame3();
-//                panel3.setBorder(BorderFactory.createTitledBorder("Show data"));
-//                getContentPane().removeAll();
-//                getContentPane().add(panel3, BorderLayout.CENTER);
-//                getContentPane().doLayout();
+                impPersoane persoane = new impPersoane();
+                switch (e.getActionCommand()) {
+                    case "Oldest/Youngest":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
 
-                // Show data in main panel
+                        mainPanel.setOldestYoungest(persoane.findOldest().get(0), persoane.findYoungest().get(0));
+                        break;
+                    case "Age sort":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
+
+                        mainPanel.displayList(persoane.outputAscendingByBirthday());
+                        break;
+                    case "% Divorced":
+                        JOptionPane.showMessageDialog(getParent(), "Procentul divorturilor - " + persoane.divorcePercentage());
+                        break;
+                    case "M age range (HS)":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
+
+                        try {
+                            int age1 = Integer.parseInt(JOptionPane.showInputDialog("Introduceti varsta 1:"));
+                            int age2 = Integer.parseInt(JOptionPane.showInputDialog("Introduceti varsta 2:"));
+                            if (age1 > age2) {
+                                JOptionPane.showMessageDialog(getParent(), "Varsta 2 nu poate fi mai mica!");
+                                break;
+                            }
+                            mainPanel.displayList(persoane.outputPeopleInAgeRange(age1, age2));
+                        } catch (NumberFormatException ex){
+                            JOptionPane.showMessageDialog(getParent(), "Varsta trebuie sa fie un numar");
+                        }
+                        break;
+                    case "M/F under 18yo":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
+
+                        JComboBox<Character> genderComboBox = new JComboBox<>(new Character[]{'m', 'f'});
+
+                        JPanel panel = new JPanel();
+                        panel.add(new JLabel("Alege sexul:"));
+                        panel.add(genderComboBox);
+
+                        int result = JOptionPane.showConfirmDialog(getParent(), panel, "Alege sexul", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                        if (result == JOptionPane.OK_OPTION) {
+                            Character selectedGender = (Character) genderComboBox.getSelectedItem();
+                            int count = persoane.peopleUnder18(selectedGender).size();
+                            JOptionPane.showMessageDialog(getParent(), "Numarul persoanelor (" + selectedGender + ") - " + count);
+                        }
+                        break;
+                    case "Married under 20":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
+
+                        JOptionPane.showMessageDialog(getParent(), "Numarul persoanelor casatorite sub 20 de ani - " + persoane.marriedUnder20().size());
+                        break;
+                    case "Refused to participate":
+                        mainPanel.setBorder(BorderFactory.createTitledBorder("Main Panel"));
+                        getContentPane().removeAll();
+                        getContentPane().add(mainPanel, BorderLayout.CENTER);
+                        getContentPane().doLayout();
+
+                        JOptionPane.showMessageDialog(getParent(), "Numarul persoanelor ce au refuzat sa participe - " + persoane.refusedToParticipate().size());
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        menuShowOldestYoungest.addActionListener(menuShowActionListener);
+        menuShowSortAge.addActionListener(menuShowActionListener);
+        menuShowDivorcePercentage.addActionListener(menuShowActionListener);
+        menuShowUnmariedMHigherEducation.addActionListener(menuShowActionListener);
+        menuShowMinor.addActionListener(menuShowActionListener);
+        menuShowNrMarriedUnder20.addActionListener(menuShowActionListener);
+        menuShowNrRefused.addActionListener(menuShowActionListener);
+
+        JMenuItem menuExport = new JMenuItem("Export people of given birth month");
+        menuExport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                impPersoane persoane = new impPersoane();
+                try {
+                    int month = Integer.parseInt(JOptionPane.showInputDialog("Introduceti numarul lunii:"));
+
+                    try (Workbook workbook = new XSSFWorkbook()) {
+                        Sheet sheet = workbook.createSheet("Person Data");
+                        createHeaderRow(sheet);
+                        int rowNum = 1;
+                        for (Persoane person : persoane.peopleBornInMonth(month)) {
+                            Row row = sheet.createRow(rowNum++);
+                            writePersonDataToRow(person, row);
+                        }
+                        FileOutputStream fileOut = new FileOutputStream(System.getProperty("user.home") + File.separator + "Downloads" + File.separator + "exportedData.xlsx");
+                        workbook.write(fileOut);
+                        fileOut.close();
+                        JOptionPane.showMessageDialog(getParent(), "Fisierul a fost exportat (Verificati folderul Downloads)");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                } catch (NumberFormatException ex){
+                    JOptionPane.showMessageDialog(getParent(), "Introduceti luna dorita sub forma de cifra");
+                } catch (Exception ex){
+                    JOptionPane.showMessageDialog(getParent(), ex.getMessage());
+                }
             }
         });
 
-        JMenuItem menuExport = new JMenuItem("Export people of given birth month");
         JMenuItem menuExit = new JMenuItem("Exit");
         menuExit.addActionListener(new ActionListener() {
             @Override
@@ -160,5 +239,27 @@ public class Main extends JFrame {
         setJMenuBar(menuBar);
 
         setResizable(false);
+    }
+
+    private static void createHeaderRow(Sheet sheet) {
+        Row headerRow = sheet.createRow(0);
+        String[] headers = {"ID", "PID", "Nume", "Prenume", "Sex", "Nr. Telefon", "Email", "Data Nasterii", "Casatorit", "Divortat"};
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+        }
+    }
+
+    private static void writePersonDataToRow(Persoane person, Row row) {
+        row.createCell(0).setCellValue(person.getId());
+        row.createCell(1).setCellValue(person.getPid());
+        row.createCell(2).setCellValue(person.getNume());
+        row.createCell(3).setCellValue(person.getPrenume());
+        row.createCell(4).setCellValue(String.valueOf(person.getSex()));
+        row.createCell(5).setCellValue(person.getNrTelefon());
+        row.createCell(6).setCellValue(person.getEmail());
+        row.createCell(7).setCellValue(person.getDataNasterii().toString());
+        row.createCell(8).setCellValue(person.getCasatorit() == 1 ? "casatorit" : "necasatorit");
+        row.createCell(9).setCellValue(person.getDivortat() == 1 ? "divortat" : "nedivortat");
     }
 }

@@ -81,7 +81,7 @@ public class impPersoane implements impHelper<Persoane>{
         return divorceRate + " %";
     }
 
-    public List<Persoane> peopleOver18(char sex){
+    public List<Persoane> peopleUnder18(char sex){
         List<Persoane> result = null;
         if (sex == 'm'){
             result = queryOperations.parameterQuery("Persoane.SelectM18",LocalDate.now().minusYears(18), Persoane.class);
@@ -95,5 +95,13 @@ public class impPersoane implements impHelper<Persoane>{
 
     public List<Persoane> marriedUnder20(){
         return queryOperations.parameterQuery("Persoane.MarriedUnder20",LocalDate.now().minusYears(20) , Persoane.class);
+    }
+
+    public List<Persoane> peopleBornInMonth(int month){
+        return queryOperations.parameterQuery("Persoane.BornInMonth", month, Persoane.class);
+    }
+
+    public List<Persoane> refusedToParticipate(){
+        return queryOperations.executeQuery("Persoane.RefusedToParticipate", Persoane.class);
     }
 }
