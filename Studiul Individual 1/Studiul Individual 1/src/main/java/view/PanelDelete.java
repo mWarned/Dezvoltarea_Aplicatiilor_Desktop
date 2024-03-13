@@ -1,3 +1,5 @@
+package view;
+
 import com.google.protobuf.Message;
 import entity.implimentation.impPersoane;
 
