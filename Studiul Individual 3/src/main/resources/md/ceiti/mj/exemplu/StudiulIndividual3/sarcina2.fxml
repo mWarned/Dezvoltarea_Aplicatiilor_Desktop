@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.TextFieldTableCell?>
+<?import javafx.scene.layout.Pane?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <TextArea fx:id="text" layoutX="28.0" layoutY="21.0" prefHeight="355.0" prefWidth="296.0" wrapText="true" />
+    <Button fx:id="btnCorrect" layoutX="337.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="245.0" text="Text correction" />
+    <Button fx:id="btnAdd" layoutX="337.0" layoutY="351.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="245.0" text="Add line to the table" />
+    <TableView fx:id="table" editable="true" layoutX="337.0" layoutY="21.0" prefHeight="283.0" prefWidth="245.0">
+        <columns>
+            <TableColumn fx:id="column" prefWidth="244.0" text="Words / Frases">
+                <cellValueFactory>
+                    <PropertyValueFactory property="value" />
+                </cellValueFactory>
+                <cellFactory>
+                    <TextFieldTableCell fx:factory="forTableColumn" />
+                </cellFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+</Pane>
